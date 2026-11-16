@@ -11,8 +11,8 @@ It is **not** part of Glitch and it is **not** made or supported by the Glitch t
 
 - **Glitch** is your second brain. It remembers you, and it has safety guards that stop an AI doing something
   silly to your files.
-- **omp** is the AI agent that **Tern 2** (https://docs.stencil.so/tern/) runs. It can talk to lots of models,
-  not only Claude.
+- **omp** is a free AI coding agent that runs in a terminal and can talk to lots of models, not only Claude.
+- **Tern 2** is a terminal app that runs omp in a nicer window. It is optional.
 - Glitch already works in Claude Code, Codex and Cursor. omp finds Glitch's skills by itself, but it does
   **not** run Glitch's hooks, and the hooks are where your identity, your memory and the safety guards live.
   This add-on runs them inside omp. It is one file, [`src/glitch.ts`](src/glitch.ts).
@@ -20,29 +20,90 @@ It is **not** part of Glitch and it is **not** made or supported by the Glitch t
 Where Glitch is on, you get: the AI knows you from the first message, the guards are on, and your chats are
 saved into your memory. Anywhere else, the add-on does nothing at all.
 
----
-
-## Is this for me?
-
-Tick all of these:
-
-- [ ] I have **Glitch set up** (I ran `/setup`; my Glitch folder is usually `~/Glitch`).
-- [ ] I have **omp** and `omp --version` works. **18.20.3 is the only version tested.**
-- [ ] I have **uv** (Glitch needs it, so you do). `uv --version` should print a version.
-- [ ] I am on a **Mac**. It was tested on a Mac only. Glitch itself runs on Windows and Linux; this add-on has
-      **not** been tried there.
-- [ ] I want Glitch with **models other than Claude**, or inside Tern 2.
-
-If you only ever use Claude Code, you do not need this.
+![omp running in Tern 2, in a Glitch folder](docs/img/omp-in-tern.png)
+*omp inside Tern 2, started in a Glitch folder.*
 
 ---
 
-## Install (5 steps, about 5 minutes)
+## What you need
 
-**1. Put this folder in your home folder and call it `glitch-omp-adapter`.** Not in Downloads, and not in
-OneDrive or Dropbox. omp is pointed at this exact folder, so if you move it later, run step 4 again.
+| You need | Why | Where to get it |
+|---|---|---|
+| A Mac | Only tested on a Mac. Glitch itself runs on Windows and Linux; this add-on has **not** been tried there. | |
+| **Glitch, already set up** | This add-on plugs into it. | [Glitch's own setup](https://github.com/Glitch-Cat-Club/glitch#get-started): clone it, open it in VS Code, install Claude Code, install uv, run `/setup`. Do that first. |
+| **uv** | Glitch's guards run on it. | Glitch's own setup has you install it (step 3 of its "Get started"). Check: `uv --version` |
+| **omp**, version **18.20.3** (the only version tested) | The agent this add-on plugs into. | **Comes with Tern 2**, or install it on its own (below). Check: `omp --version` |
+| **A model login in omp** | So omp can talk to a model. | `omp login` (below) |
+| Tern 2 (optional) | A nicer window, and one-click Glitch chats. | See "Tern 2" below. You can skip it: everything works in any terminal. |
 
-**2. Open the Terminal and go there.**
+### Opening the Terminal, and the grey boxes
+
+The **Terminal** is the app where you type commands. Press `⌘ + Space`, type `Terminal`, press Enter. Every grey
+box in this page is something to **copy, paste into the Terminal, and press Enter on**. Do them one at a time.
+
+### Getting omp
+
+If you have **Tern 2**, you already have omp: it ships with the app. Open a **new** Terminal window and check:
+
+```bash
+omp --version
+```
+
+It should print `omp/18.20.3` (or just the number). If it says `command not found`, install omp on its own.
+From omp's own site (https://omp.sh), for a Mac or Linux:
+
+```bash
+curl -fsSL https://omp.sh/install | sh
+```
+
+That installs the newest omp, which may be newer than the version this add-on was tested on. omp's README says
+you can pin a release; for the tested one:
+
+```bash
+curl -fsSL https://omp.sh/install | sh -s -- --binary --ref v18.20.3
+```
+
+(Those two lines come from omp's own instructions. The author's omp came with Tern, so they were not run
+here.) Then open a **new** Terminal window and run `omp --version` again.
+
+### Signing in to a model
+
+omp needs a login for at least one model provider (Claude, ChatGPT, OpenRouter and others; use the one you
+have). In the Terminal:
+
+```bash
+omp login
+```
+
+and follow what it asks. (It is the same as typing `/login` inside omp.) Your login is kept by omp, not by
+this add-on.
+
+### Tern 2 (optional)
+
+Tern 2 is a terminal app from Stencil, the team that makes omp (docs: https://docs.stencil.so/tern/). It signs
+you in with a Stencil account. Skip it if you like: with just omp, you start Glitch by typing
+`cd ~/Glitch && omp` in the Terminal. If you do use Tern 2, this add-on has an optional plugin that adds
+Glitch entries to its command palette (see "Using it day to day").
+
+---
+
+## Install (6 steps, about 5 minutes)
+
+**1. Download this folder into your home folder, and call it `glitch-omp-adapter`.** Not in Downloads, and not
+in OneDrive or Dropbox: omp is pointed at this exact folder, so if you move it later, run step 4 again.
+Either way works:
+
+- **With git** (one line, and updating later is easy):
+
+  ```bash
+  git clone https://github.com/MrEvanscodes/glitch-omp-adapter.git ~/glitch-omp-adapter
+  ```
+
+- **Without git:** on this page press the green **Code** button, then **Download ZIP**. Double-click the zip to
+  unpack it, rename the unpacked folder from `glitch-omp-adapter-main` to `glitch-omp-adapter`, and drag it
+  into your home folder (the one with your name in Finder's sidebar).
+
+**2. Go to it in the Terminal.**
 
 ```bash
 cd ~/glitch-omp-adapter
@@ -68,32 +129,57 @@ add-on to omp's list of extensions (your other extensions stay), and writes a sm
 naming your Glitch folder. It does not touch your models, your logins or anything inside Glitch. Running it a
 second time changes nothing.
 
-**5. Open a NEW omp chat inside your Glitch folder and look for proof.** Chats that were already open do not
-pick it up.
+**5. Open a NEW omp chat inside your Glitch folder.** Chats that were already open do not pick it up.
 
 ```bash
 cd ~/Glitch && omp
 ```
 
-Then ask it to **read `/etc/hosts`**. Glitch should stop and ask you first (that file is outside your Glitch
-folder). If it just reads it, the add-on is not on: run
+(In Tern 2 you can do the same from its command palette: see "Using it day to day".)
+
+**6. Look for proof it is on.** Type this into the chat:
+
+> Please read the file /etc/hosts and tell me how many lines it has.
+
+That file is outside your Glitch folder, so Glitch should **stop and ask you first**. You should see the AI say
+it paused and ask "Shall I?":
+
+![Glitch pausing before reading a file outside the Glitch folder](docs/img/glitch-asks-first.png)
+*Glitch's guard working. The model is told to stop and ask you. Nothing was read.*
+
+Answer `no` (or just ignore it): nothing is read until you say yes. If it simply reads the file, the add-on is
+not on: run
 
 ```bash
 cd ~/glitch-omp-adapter && uv run --no-project python scripts/install.py status
 ```
 
-and see "If something is wrong" below. (You can say no: nothing is read until you agree.)
+and see "If something is wrong" below.
 
 ### Using it day to day
 
-- Start omp **inside your Glitch folder**: `cd ~/Glitch && omp`, or the Tern command palette entry below.
+- Start omp **inside your Glitch folder**: `cd ~/Glitch && omp`, or from Tern 2's palette (below).
 - Skills are `/skill:name` in omp (not `/name`): `/skill:workspaces`, `/skill:glitch-wrapup`, `/skill:recall <name>`.
   Plain sentences like "work on my newsletter" work too.
-- When Glitch **asks first** (a question box, or the AI saying it paused and asking "Shall I?"), answer `yes`
-  for one read, or `always allow` to stop being asked.
+- When Glitch **pauses** (it says "I paused there… Shall I?"), answer `yes` for one read, or `always allow` to
+  stop being asked about reads outside your Glitch folder.
 - When Glitch **refuses a `cd X && ...` command**, that is normal. The model is told why and tries again.
 - Leave with `/exit`, or just close the tab. Either way the chat is saved into your memory (if it ran 5 turns
   or more, Glitch's own rule).
+- A chat may start a background **memory keeper** helper when memory work is waiting. It is useful and it uses
+  extra tokens (you can see one in the second screenshot above, under "Task").
+
+**Tern 2: one click.** Link the optional plugin once:
+
+```bash
+tern plugin link ~/glitch-omp-adapter/tern-plugin
+```
+
+Then press `⌘ + K` in Tern, type `glitch`, and press Enter on **Glitch**. It jumps to your open Glitch chat, or
+starts one:
+
+![Tern 2's command palette showing the Glitch entries](docs/img/tern-palette.png)
+*Tern 2's command palette after typing "glitch".* More about the plugin is under "One click in Tern 2" below.
 
 ---
 
@@ -144,12 +230,23 @@ What you should know before you give it to your real brain:
 |---|---|
 | The chat does not know you, or reading `/etc/hosts` is not stopped | Did you start omp **inside** your Glitch folder, in a **new** chat? Then run `install.py status`. |
 | The first message says **"Glitch is OFF in ..."** | That folder is not on your trusted list. If it is yours: `install.py trust "<that folder>"`. If you do not know where it came from, leave it off. |
+| `omp: command not found` | Open a **new** Terminal window. Still missing? Install omp (see "Getting omp" above). |
+| omp starts but cannot talk to a model | Run `omp login`. |
+| `uv: command not found` | Install uv: https://docs.astral.sh/uv/ (or run Glitch's `/setup` again). |
 | `status` says omp does not load the add-on | Run `install.py install` again. |
 | You moved this folder | Run `install.py install` again from the new place (it replaces the old entry, never doubles it). |
 | Every command is refused with a message about `uv` | Glitch's guards need `uv`. Install it (https://docs.astral.sh/uv/). They refuse on purpose when they cannot run. |
 | You want it gone | `uv run --no-project python scripts/install.py uninstall`. It removes only this add-on and the list it wrote; Glitch and your other omp settings stay. Your old settings are kept in `<omp settings folder>/glitch-adapter-backups/`. |
 
 `install.py` has `--dry-run` on every command that changes something.
+
+### Updating
+
+- **This add-on:** if you used git, `cd ~/glitch-omp-adapter && git pull`. If you used the zip, download it
+  again and replace the folder (same name, same place). Then run the install command again (step 4). It is safe
+  to repeat.
+- **After you update omp or Glitch:** run `install.py status`, and press `⌘ + K` → **Check Glitch is working**
+  in Tern 2 (needs Node 22.18 or newer). omp is young and changes quickly; a Glitch update can add hooks.
 
 ---
 
