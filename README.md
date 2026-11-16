@@ -25,6 +25,43 @@ saved into your memory. Anywhere else, the add-on does nothing at all.
 
 ---
 
+## Why bother? (how I use it)
+
+omp lets you point Glitch at **any** model, so you are never tied to one company. This is how I use it. It is
+my setup, not advice, and prices change.
+
+- **What I pay for:** a **Claude Max** subscription, and an **OpenCode Go** subscription, which gives me the
+  cheapest access I have found to the best Chinese models. I also have API access connected for anything else
+  I need.
+- **Two layers.** The **workhorse layer** is OpenCode Go. It handles most of the tokens (roughly 80%):
+  helpers, searching, test loops, routine builds. It stays the same whichever lab is ahead. The **frontier
+  slot** (about £90 a month for me, today Claude Max) handles the hardest 20%: architecture, planning and hard
+  bugs.
+- **Why that works (musical chairs).** The best model keeps changing hands. If OpenAI or Google overtakes
+  Claude next month, I rebuild nothing. I cancel Claude Max at the end of the billing month and put the same
+  budget into the new winner. Glitch (your memory, guards and skills) sits on top and does not care which model
+  is underneath.
+
+That last part is what this add-on gives you in omp. The same idea is how I set up OpenCode, and I made a
+sibling add-on for that too: [glitch-opencode-adapter](https://github.com/MrEvanscodes/glitch-opencode-adapter).
+In omp the idea works by giving the main chat and its helpers different models: see "Helpers" under "Skills"
+below, and run `omp login` to see which providers omp can use. You only need **one** model login to start.
+
+---
+
+## Pick your way
+
+You can use omp **with Tern** or **without it**. I recommend Tern, and use it myself.
+
+| | **Way 1: with Tern** (recommended) | **Way 2: without Tern** (omp in the Terminal) |
+|---|---|---|
+| What it is | A terminal app with a nicer window. omp is built in. | omp running in the Terminal app that is already on your Mac. |
+| Getting it | Closed beta: join a waitlist, then download. | One command, today. |
+| Starting Glitch | Press `⌘ + K`, type `glitch`, press Enter. | `cd ~/Glitch && omp` |
+| Pick it if | You want the nicest experience. | You want to start right now, or do not want another app. |
+
+You can start with Way 2 today and add Tern later: nothing you install here has to be redone.
+
 ## What you need
 
 | You need | Why | Where to get it |
@@ -32,26 +69,43 @@ saved into your memory. Anywhere else, the add-on does nothing at all.
 | A Mac | Only tested on an Apple silicon Mac. Glitch itself runs on Windows and Linux; this add-on has **not** been tried there. | |
 | **Glitch, already set up** | This add-on plugs into it. | [Glitch's own setup](https://github.com/Glitch-Cat-Club/glitch#get-started): clone it, open it in VS Code, install Claude Code, install uv, run `/setup`. Do that first. |
 | **uv** | Glitch's guards run on it. | Glitch's own setup has you install it (step 3 of its "Get started"). Check: `uv --version` |
-| **omp**, version **18.20.3** (the only version tested) | The agent this add-on plugs into. | **Comes with Tern**, or install it on its own (below). Check: `omp --version` |
+| **omp**, version **18.20.3** (the only version tested) | The agent this add-on plugs into. | **Way 1:** comes with Tern. **Way 2:** install it on its own. Both below. Check: `omp --version` |
 | **A model login in omp** | So omp can talk to a model. | `omp login` (below) |
-| Tern (optional) | A nicer window, and one-click Glitch chats. | Closed beta: join the waitlist at https://stencil.so/tern, then download. See "Tern" below. You can skip it: everything works in any terminal. |
+| **Tern** (Way 1 only) | The nicer window, and one-click Glitch chats. | Closed beta: join the waitlist at https://stencil.so/tern, then download. Below. |
 
 ### Opening the Terminal, and the grey boxes
 
 The **Terminal** is the app where you type commands. Press `⌘ + Space`, type `Terminal`, press Enter. Every grey
 box in this page is something to **copy, paste into the Terminal, and press Enter on**. Do them one at a time.
 
-### Getting omp
+## Way 1: with Tern (recommended)
 
-If you have **Tern**, you already have omp: it ships with the app. Open a **new** Terminal window and check:
+Tern is a terminal app from Stencil, the team that makes omp (docs: https://docs.stencil.so/tern/). It is in
+**closed beta**, so you ask for access first:
 
-```bash
-omp --version
-```
+1. Go to **https://stencil.so/tern** and join the waitlist. (I joined one evening and had access the next
+   morning. Yours may take longer. You do not have to wait: start with Way 2 meanwhile.)
+2. When you are let in, open Tern's download page. Choose your Mac (Apple silicon or Intel) and download the
+   `.dmg`. On the Apple silicon page it is the big blue button:
 
-It should print `omp/18.20.3` (or just the number). If it says `command not found`, or you do not have Tern
-(it has a waitlist), install omp on its own. You do not need to wait for Tern.
-From omp's own site (https://omp.sh), for a Mac or Linux:
+   ![Tern's download page, with the Download for macOS button](docs/img/tern-download.png)
+   *Tern's download page once you have access. The version and date will be newer than in this picture.*
+
+3. Open the `.dmg`, drag **Tern** into Applications, then open it and sign in with your Stencil account.
+4. **omp comes with Tern.** Open a **new** Terminal window and check:
+
+   ```bash
+   omp --version
+   ```
+
+   It should print `omp/18.20.3` (or just the number). If it says `command not found`, use the install command
+   under Way 2.
+
+The version tested here is **Tern 0.9.23**. Tern also has Windows builds; this add-on has not been tried there.
+
+## Way 2: without Tern (omp in the Terminal)
+
+Install omp on its own. From omp's own site (https://omp.sh), for a Mac or Linux:
 
 ```bash
 curl -fsSL https://omp.sh/install | sh
@@ -64,13 +118,16 @@ you can pin a release; for the tested one:
 curl -fsSL https://omp.sh/install | sh -s -- --binary --ref v18.20.3
 ```
 
-(Those two lines come from omp's own instructions. The author's omp came with Tern, so they were not
-run here.) Then open a **new** Terminal window and run `omp --version` again.
+(Those two lines come from omp's own instructions. My omp came with Tern, so I did not run them.) Then open a
+**new** Terminal window and check:
 
-### Signing in to a model
+```bash
+omp --version
+```
 
-omp needs a login for at least one model provider (Claude, ChatGPT, OpenRouter and others; use the one you
-have). In the Terminal:
+## Both ways: sign in to a model
+
+omp needs a login for at least one model provider (use the one you have). In the Terminal:
 
 ```bash
 omp login
@@ -78,23 +135,6 @@ omp login
 
 and follow what it asks. (It is the same as typing `/login` inside omp.) Your login is kept by omp, not by
 this add-on.
-
-### Tern (optional)
-
-Tern is a terminal app from Stencil, the team that makes omp (docs: https://docs.stencil.so/tern/). It is in
-**closed beta**, so you ask for access first:
-
-1. Go to **https://stencil.so/tern** and join the waitlist. (The author joined one evening and had access the
-   next morning. Yours may take longer.)
-2. When you are let in, open Tern's download page, choose your Mac (Apple silicon or Intel) and download the
-   `.dmg`.
-3. Open the `.dmg`, drag **Tern** into Applications, then open it and sign in with your Stencil account.
-
-The version tested here is **Tern 0.9.23**. Tern also has Windows builds; this add-on has not been tried there.
-
-You can skip Tern: with just omp, you start Glitch by typing `cd ~/Glitch && omp` in the Terminal. If you do
-use Tern, this add-on has an optional plugin that adds Glitch entries to its command palette (see "Using it day
-to day").
 
 ---
 
@@ -142,11 +182,23 @@ second time changes nothing.
 
 **5. Open a NEW omp chat inside your Glitch folder.** Chats that were already open do not pick it up.
 
-```bash
-cd ~/Glitch && omp
-```
+- **Way 1, with Tern.** Link the optional plugin once:
 
-(In Tern you can do the same from its command palette: see "Using it day to day".)
+  ```bash
+  tern plugin link ~/glitch-omp-adapter/tern-plugin
+  ```
+
+  Then press `⌘ + K` in Tern, type `glitch`, and press Enter on **Glitch**. It jumps to your open Glitch chat,
+  or starts one:
+
+  ![Tern's command palette showing the Glitch entries](docs/img/tern-palette.png)
+  *Tern's command palette after typing "glitch".* More about the plugin is under "One click in Tern" below.
+
+- **Way 2, without Tern.**
+
+  ```bash
+  cd ~/Glitch && omp
+  ```
 
 **6. Look for proof it is on.** Type this into the chat:
 
@@ -169,7 +221,7 @@ and see "If something is wrong" below.
 
 ### Using it day to day
 
-- Start omp **inside your Glitch folder**: `cd ~/Glitch && omp`, or from Tern's palette (below).
+- Start omp **inside your Glitch folder**: `⌘ + K` → **Glitch** in Tern, or `cd ~/Glitch && omp` in the Terminal.
 - Skills are `/skill:name` in omp (not `/name`): `/skill:workspaces`, `/skill:glitch-wrapup`, `/skill:recall <name>`.
   Plain sentences like "work on my newsletter" work too.
 - When Glitch **pauses** (it says "I paused there… Shall I?"), answer `yes` for one read, or `always allow` to
@@ -178,19 +230,7 @@ and see "If something is wrong" below.
 - Leave with `/exit`, or just close the tab. Either way the chat is saved into your memory (if it ran 5 turns
   or more, Glitch's own rule).
 - A chat may start a background **memory keeper** helper when memory work is waiting. It is useful and it uses
-  extra tokens (you can see one in the second screenshot above, under "Task").
-
-**Tern: one click.** Link the optional plugin once:
-
-```bash
-tern plugin link ~/glitch-omp-adapter/tern-plugin
-```
-
-Then press `⌘ + K` in Tern, type `glitch`, and press Enter on **Glitch**. It jumps to your open Glitch chat, or
-starts one:
-
-![Tern's command palette showing the Glitch entries](docs/img/tern-palette.png)
-*Tern's command palette after typing "glitch".* More about the plugin is under "One click in Tern" below.
+  extra tokens (you can see one in the screenshot above, under "Task").
 
 ---
 
