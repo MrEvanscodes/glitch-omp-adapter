@@ -1,4 +1,4 @@
-# Glitch for omp (the agent inside Tern 2)
+# Glitch for omp (the agent inside Tern)
 
 **Use your Glitch memory and safety guards inside omp, with any AI model omp can talk to.**
 
@@ -12,7 +12,7 @@ It is **not** part of Glitch and it is **not** made or supported by the Glitch t
 - **Glitch** is your second brain. It remembers you, and it has safety guards that stop an AI doing something
   silly to your files.
 - **omp** is a free AI coding agent that runs in a terminal and can talk to lots of models, not only Claude.
-- **Tern 2** is a terminal app that runs omp in a nicer window. It is optional.
+- **Tern** is a terminal app that runs omp in a nicer window. It is optional.
 - Glitch already works in Claude Code, Codex and Cursor. omp finds Glitch's skills by itself, but it does
   **not** run Glitch's hooks, and the hooks are where your identity, your memory and the safety guards live.
   This add-on runs them inside omp. It is one file, [`src/glitch.ts`](src/glitch.ts).
@@ -20,8 +20,8 @@ It is **not** part of Glitch and it is **not** made or supported by the Glitch t
 Where Glitch is on, you get: the AI knows you from the first message, the guards are on, and your chats are
 saved into your memory. Anywhere else, the add-on does nothing at all.
 
-![omp running in Tern 2, in a Glitch folder](docs/img/omp-in-tern.png)
-*omp inside Tern 2, started in a Glitch folder.*
+![omp running in Tern, in a Glitch folder](docs/img/omp-in-tern.png)
+*omp inside Tern, started in a Glitch folder.*
 
 ---
 
@@ -32,9 +32,9 @@ saved into your memory. Anywhere else, the add-on does nothing at all.
 | A Mac | Only tested on a Mac. Glitch itself runs on Windows and Linux; this add-on has **not** been tried there. | |
 | **Glitch, already set up** | This add-on plugs into it. | [Glitch's own setup](https://github.com/Glitch-Cat-Club/glitch#get-started): clone it, open it in VS Code, install Claude Code, install uv, run `/setup`. Do that first. |
 | **uv** | Glitch's guards run on it. | Glitch's own setup has you install it (step 3 of its "Get started"). Check: `uv --version` |
-| **omp**, version **18.20.3** (the only version tested) | The agent this add-on plugs into. | **Comes with Tern 2**, or install it on its own (below). Check: `omp --version` |
+| **omp**, version **18.20.3** (the only version tested) | The agent this add-on plugs into. | **Comes with Tern**, or install it on its own (below). Check: `omp --version` |
 | **A model login in omp** | So omp can talk to a model. | `omp login` (below) |
-| Tern 2 (optional) | A nicer window, and one-click Glitch chats. | See "Tern 2" below. You can skip it: everything works in any terminal. |
+| Tern (optional) | A nicer window, and one-click Glitch chats. | See "Tern" below. You can skip it: everything works in any terminal. |
 
 ### Opening the Terminal, and the grey boxes
 
@@ -43,7 +43,7 @@ box in this page is something to **copy, paste into the Terminal, and press Ente
 
 ### Getting omp
 
-If you have **Tern 2**, you already have omp: it ships with the app. Open a **new** Terminal window and check:
+If you have **Tern**, you already have omp: it ships with the app. Open a **new** Terminal window and check:
 
 ```bash
 omp --version
@@ -63,8 +63,8 @@ you can pin a release; for the tested one:
 curl -fsSL https://omp.sh/install | sh -s -- --binary --ref v18.20.3
 ```
 
-(Those two lines come from omp's own instructions. The author's omp came with Tern, so they were not run
-here.) Then open a **new** Terminal window and run `omp --version` again.
+(Those two lines come from omp's own instructions. The author's omp came with Tern, so they were not
+run here.) Then open a **new** Terminal window and run `omp --version` again.
 
 ### Signing in to a model
 
@@ -78,11 +78,11 @@ omp login
 and follow what it asks. (It is the same as typing `/login` inside omp.) Your login is kept by omp, not by
 this add-on.
 
-### Tern 2 (optional)
+### Tern (optional)
 
-Tern 2 is a terminal app from Stencil, the team that makes omp (docs: https://docs.stencil.so/tern/). It signs
+Tern is a terminal app from Stencil, the team that makes omp (docs: https://docs.stencil.so/tern/). It signs
 you in with a Stencil account. Skip it if you like: with just omp, you start Glitch by typing
-`cd ~/Glitch && omp` in the Terminal. If you do use Tern 2, this add-on has an optional plugin that adds
+`cd ~/Glitch && omp` in the Terminal. If you do use Tern, this add-on has an optional plugin that adds
 Glitch entries to its command palette (see "Using it day to day").
 
 ---
@@ -135,7 +135,7 @@ second time changes nothing.
 cd ~/Glitch && omp
 ```
 
-(In Tern 2 you can do the same from its command palette: see "Using it day to day".)
+(In Tern you can do the same from its command palette: see "Using it day to day".)
 
 **6. Look for proof it is on.** Type this into the chat:
 
@@ -158,7 +158,7 @@ and see "If something is wrong" below.
 
 ### Using it day to day
 
-- Start omp **inside your Glitch folder**: `cd ~/Glitch && omp`, or from Tern 2's palette (below).
+- Start omp **inside your Glitch folder**: `cd ~/Glitch && omp`, or from Tern's palette (below).
 - Skills are `/skill:name` in omp (not `/name`): `/skill:workspaces`, `/skill:glitch-wrapup`, `/skill:recall <name>`.
   Plain sentences like "work on my newsletter" work too.
 - When Glitch **pauses** (it says "I paused there… Shall I?"), answer `yes` for one read, or `always allow` to
@@ -169,7 +169,7 @@ and see "If something is wrong" below.
 - A chat may start a background **memory keeper** helper when memory work is waiting. It is useful and it uses
   extra tokens (you can see one in the second screenshot above, under "Task").
 
-**Tern 2: one click.** Link the optional plugin once:
+**Tern: one click.** Link the optional plugin once:
 
 ```bash
 tern plugin link ~/glitch-omp-adapter/tern-plugin
@@ -178,8 +178,8 @@ tern plugin link ~/glitch-omp-adapter/tern-plugin
 Then press `⌘ + K` in Tern, type `glitch`, and press Enter on **Glitch**. It jumps to your open Glitch chat, or
 starts one:
 
-![Tern 2's command palette showing the Glitch entries](docs/img/tern-palette.png)
-*Tern 2's command palette after typing "glitch".* More about the plugin is under "One click in Tern 2" below.
+![Tern's command palette showing the Glitch entries](docs/img/tern-palette.png)
+*Tern's command palette after typing "glitch".* More about the plugin is under "One click in Tern" below.
 
 ---
 
@@ -198,7 +198,7 @@ What you should know before you give it to your real brain:
 2. **Only folders on your trusted list run their hooks.** This add-on runs the hook programs that live inside
    a Glitch folder. A Glitch folder you did not set up yourself (a friend's fork, a download) could run its own
    programs the moment you open omp in it. Claude Code asks you to trust a folder first; this list is the
-   same idea. Open an untrusted Glitch folder and the add-on **stays off and tells you so** on screen (seen in a real Tern 2 tab). Add a folder only
+   same idea. Open an untrusted Glitch folder and the add-on **stays off and tells you so** on screen (seen in a real Tern tab). Add a folder only
    if you have looked at what is in it: `install.py trust DIR`. It is protection against opening the wrong
    folder by accident, not a sandbox.
 3. **omp's own approval setting is `yolo` by default**: it runs commands without asking. Claude Code's
@@ -230,6 +230,7 @@ What you should know before you give it to your real brain:
 |---|---|
 | The chat does not know you, or reading `/etc/hosts` is not stopped | Did you start omp **inside** your Glitch folder, in a **new** chat? Then run `install.py status`. |
 | The first message says **"Glitch is OFF in ..."** | That folder is not on your trusted list. If it is yours: `install.py trust "<that folder>"`. If you do not know where it came from, leave it off. |
+| `tern plugin link` is not recognised | The `tern` your Terminal found may not be the one that came with the Tern app. `tern --version` should print `tern 0.9` or newer. Run the command from a tab inside Tern. |
 | `omp: command not found` | Open a **new** Terminal window. Still missing? Install omp (see "Getting omp" above). |
 | omp starts but cannot talk to a model | Run `omp login`. |
 | `uv: command not found` | Install uv: https://docs.astral.sh/uv/ (or run Glitch's `/setup` again). |
@@ -246,7 +247,7 @@ What you should know before you give it to your real brain:
   again and replace the folder (same name, same place). Then run the install command again (step 4). It is safe
   to repeat.
 - **After you update omp or Glitch:** run `install.py status`, and press `⌘ + K` → **Check Glitch is working**
-  in Tern 2 (needs Node 22.18 or newer). omp is young and changes quickly; a Glitch update can add hooks.
+  in Tern (needs Node 22.18 or newer). omp is young and changes quickly; a Glitch update can add hooks.
 
 ---
 
@@ -364,7 +365,7 @@ exits non-zero and prints the fix if anything is wrong, so you are never silentl
 ## Skills
 
 All 39 skills have been run in omp with the add-on on, in a spare copy of Glitch (Haiku 5.5, spend-capped;
-`workspaces` was also run inside a Tern 2 tab):
+`workspaces` was also run inside a Tern tab):
 
 | Result | Skills |
 |---|---|
@@ -404,10 +405,10 @@ Things to know:
 Close its input (`omp -p ... < /dev/null`). Otherwise omp waits for a prompt on a pipe that never ends and
 looks hung ("Reading prompt from piped stdin (waiting for EOF)").
 
-## One click in Tern 2
+## One click in Tern
 
-`tern-plugin/` is an **optional** small Tern 2 plugin (Tern 2 is a closed beta; the add-on works in omp
-without it). It adds a **Glitch** group to the command palette and changes what the
+`tern-plugin/` is an **optional** small Tern plugin (Tern signs you in with a Stencil account; the
+add-on works in omp without it). It adds a **Glitch** group to the command palette and changes what the
 **+** button does while you are inside a Glitch chat.
 
 | Where | What it does |
