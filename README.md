@@ -547,8 +547,13 @@ real server.
 npm test                # 24 logic tests, no omp or Glitch needed
 npm run test:installer  # 9 tests of install.py, run against a throwaway omp settings folder
 npm run test:sandbox    # 6 end-to-end tests against a spare Glitch copy with Glitch's real hooks
+npm run parity          # 17 probes through Claude Code's hook rules and this add-on: same verdict on each?
 ```
 
-The sandbox tests write a little state into the folder they run against, so they default to
-`~/Glitch-sandbox` (a spare copy you make), never your real brain; set `GLITCH_ROOT` to use another.
-The tests need Node 22.18 or newer.
+The sandbox tests and the parity check write a little state into the folder they run against, so they
+default to `~/Glitch-sandbox` (a spare copy you make), never your real brain; set `GLITCH_ROOT` to use
+another. The tests need Node 22.18 or newer.
+
+`npm run parity` prints the Glitch, add-on, omp, Tern, Node and uv versions it ran against, and exits
+non-zero if any verdict differs. Dated results live in `docs/results/`; add a new file after any Glitch,
+add-on, omp or Tern update.

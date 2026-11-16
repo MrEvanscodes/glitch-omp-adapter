@@ -9,6 +9,7 @@
     "test": "node --test tests/glitch.test.mjs",
     "test:installer": "node --test tests/installer.test.mjs",
     "test:sandbox": "node --test tests/sandbox.test.mjs",
+    "parity": "node scripts/parity.mjs",
     "doctor": "node scripts/doctor.mjs"
   }
 }
