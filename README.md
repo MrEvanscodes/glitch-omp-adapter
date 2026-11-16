@@ -29,12 +29,12 @@ saved into your memory. Anywhere else, the add-on does nothing at all.
 
 | You need | Why | Where to get it |
 |---|---|---|
-| A Mac | Only tested on a Mac. Glitch itself runs on Windows and Linux; this add-on has **not** been tried there. | |
+| A Mac | Only tested on an Apple silicon Mac. Glitch itself runs on Windows and Linux; this add-on has **not** been tried there. | |
 | **Glitch, already set up** | This add-on plugs into it. | [Glitch's own setup](https://github.com/Glitch-Cat-Club/glitch#get-started): clone it, open it in VS Code, install Claude Code, install uv, run `/setup`. Do that first. |
 | **uv** | Glitch's guards run on it. | Glitch's own setup has you install it (step 3 of its "Get started"). Check: `uv --version` |
 | **omp**, version **18.20.3** (the only version tested) | The agent this add-on plugs into. | **Comes with Tern**, or install it on its own (below). Check: `omp --version` |
 | **A model login in omp** | So omp can talk to a model. | `omp login` (below) |
-| Tern (optional) | A nicer window, and one-click Glitch chats. | See "Tern" below. You can skip it: everything works in any terminal. |
+| Tern (optional) | A nicer window, and one-click Glitch chats. | Closed beta: join the waitlist at https://stencil.so/tern, then download. See "Tern" below. You can skip it: everything works in any terminal. |
 
 ### Opening the Terminal, and the grey boxes
 
@@ -49,7 +49,8 @@ If you have **Tern**, you already have omp: it ships with the app. Open a **new*
 omp --version
 ```
 
-It should print `omp/18.20.3` (or just the number). If it says `command not found`, install omp on its own.
+It should print `omp/18.20.3` (or just the number). If it says `command not found`, or you do not have Tern
+(it has a waitlist), install omp on its own. You do not need to wait for Tern.
 From omp's own site (https://omp.sh), for a Mac or Linux:
 
 ```bash
@@ -80,10 +81,20 @@ this add-on.
 
 ### Tern (optional)
 
-Tern is a terminal app from Stencil, the team that makes omp (docs: https://docs.stencil.so/tern/). It signs
-you in with a Stencil account. Skip it if you like: with just omp, you start Glitch by typing
-`cd ~/Glitch && omp` in the Terminal. If you do use Tern, this add-on has an optional plugin that adds
-Glitch entries to its command palette (see "Using it day to day").
+Tern is a terminal app from Stencil, the team that makes omp (docs: https://docs.stencil.so/tern/). It is in
+**closed beta**, so you ask for access first:
+
+1. Go to **https://stencil.so/tern** and join the waitlist. (The author joined one evening and had access the
+   next morning. Yours may take longer.)
+2. When you are let in, open Tern's download page, choose your Mac (Apple silicon or Intel) and download the
+   `.dmg`.
+3. Open the `.dmg`, drag **Tern** into Applications, then open it and sign in with your Stencil account.
+
+The version tested here is **Tern 0.9.23**. Tern also has Windows builds; this add-on has not been tried there.
+
+You can skip Tern: with just omp, you start Glitch by typing `cd ~/Glitch && omp` in the Terminal. If you do
+use Tern, this add-on has an optional plugin that adds Glitch entries to its command palette (see "Using it day
+to day").
 
 ---
 
@@ -407,8 +418,8 @@ looks hung ("Reading prompt from piped stdin (waiting for EOF)").
 
 ## One click in Tern
 
-`tern-plugin/` is an **optional** small Tern plugin (Tern signs you in with a Stencil account; the
-add-on works in omp without it). It adds a **Glitch** group to the command palette and changes what the
+`tern-plugin/` is an **optional** small Tern plugin (Tern is a closed beta and signs you in with a Stencil
+account; the add-on works in omp without it). It adds a **Glitch** group to the command palette and changes what the
 **+** button does while you are inside a Glitch chat.
 
 | Where | What it does |
