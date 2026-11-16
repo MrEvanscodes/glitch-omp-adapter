@@ -1,0 +1,14 @@
+{
+  "name": "glitch-omp-adapter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Runs Glitch's own Claude Code hooks inside omp (the agent Tern uses): safety guards, memory, identity. A community add-on, not part of Glitch.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/glitch.test.mjs",
+    "test:installer": "node --test tests/installer.test.mjs",
+    "test:sandbox": "node --test tests/sandbox.test.mjs",
+    "doctor": "node scripts/doctor.mjs"
+  }
+}

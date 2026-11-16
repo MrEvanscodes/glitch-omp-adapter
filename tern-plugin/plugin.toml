@@ -1,0 +1,7 @@
+schema = 1
+id = "glitch"
+name = "Glitch"
+version = "0.1.0"
+description = "One-click Glitch: open your Glitch brain in an omp agent straight from the command palette."
+icon = "sparkle"
+window = "window.luau"
