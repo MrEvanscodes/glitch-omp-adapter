@@ -42,10 +42,15 @@ my setup, not advice, and prices change.
   budget into the new winner. Glitch (your memory, guards and skills) sits on top and does not care which model
   is underneath.
 
-That last part is what this add-on gives you in omp. The same idea is how I set up OpenCode, and I made a
+That last part is what this add-on gives you in omp. **omp works with all of these**: your Claude subscription,
+your ChatGPT subscription, OpenCode Go, OpenRouter and more, and you can switch model inside a chat. If
+OpenCode Go is not enough, I plan to move the workhorse layer to **Alibaba**. omp can add anything that speaks
+the OpenAI API in its `models.yml` file ([omp's models.yml docs](https://github.com/can1357/oh-my-pi/blob/main/docs/models.md)), which is how I expect to add it. You only
+need **one** model login to start.
+
+In omp the two layers are just two model choices: the main chat on your frontier model, and its helpers on your
+workhorse model (see "Helpers" under "Skills" below). The same idea is how I set up OpenCode, and I made a
 sibling add-on for that too: [glitch-opencode-adapter](https://github.com/MrEvanscodes/glitch-opencode-adapter).
-In omp the idea works by giving the main chat and its helpers different models: see "Helpers" under "Skills"
-below, and run `omp login` to see which providers omp can use. You only need **one** model login to start.
 
 ---
 
@@ -133,8 +138,16 @@ omp needs a login for at least one model provider (use the one you have). In the
 omp login
 ```
 
-and follow what it asks. (It is the same as typing `/login` inside omp.) Your login is kept by omp, not by
-this add-on.
+It lets you pick a provider. You can also name one: `omp login anthropic` for your **Claude** subscription,
+`omp login openai-codex` for your **ChatGPT** subscription. (It is the same as typing `/login` inside omp.) To
+see every model you can use right now:
+
+```bash
+omp models
+```
+
+Your logins are kept by omp, not by this add-on. Which model you use is up to you. The guards and memory work
+the same whichever one you pick; how well a model follows Glitch's manners can differ (see "Staying safe").
 
 ---
 
