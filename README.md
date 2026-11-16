@@ -31,8 +31,8 @@ omp lets you point Glitch at **any** model, so you are never tied to one company
 my setup, not advice, and prices change.
 
 - **What I pay for:** a **Claude Max** subscription, and an **OpenCode Go** subscription, which gives me the
-  cheapest access I have found to the best Chinese models. I also have API access connected for anything else
-  I need.
+  cheapest access I have found to the best Chinese models. I also have API access connected for OpenCode and
+  Jev (see the end of this section), for anything else I need.
 - **Two layers.** The **workhorse layer** is OpenCode Go. It handles most of the tokens (roughly 80%):
   helpers, searching, test loops, routine builds. It stays the same whichever lab is ahead. The **frontier
   slot** (about £90 a month for me, today Claude Max) handles the hardest 20%: architecture, planning and hard
@@ -51,6 +51,11 @@ need **one** model login to start.
 In omp the two layers are just two model choices: the main chat on your frontier model, and its helpers on your
 workhorse model (see "Helpers" under "Skills" below). The same idea is how I set up OpenCode, and I made a
 sibling add-on for that too: [glitch-opencode-adapter](https://github.com/MrEvanscodes/glitch-opencode-adapter).
+
+**On the side: Jev.** I have also set up **Jev** from [TypeSafe AI](https://typesafe.ai) through its API. It is a
+decision model, not a chatbot: you give it some state and typed questions, and it answers with typed results and
+probabilities, so there is no text to parse. That suits things like routing, flagging and scoring. I am
+interested in using it for some things. It is not part of this add-on.
 
 ---
 
