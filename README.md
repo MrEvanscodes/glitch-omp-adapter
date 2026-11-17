@@ -154,6 +154,56 @@ omp models
 Your logins are kept by omp, not by this add-on. Which model you use is up to you. The guards and memory work
 the same whichever one you pick; how well a model follows Glitch's manners can differ (see "Staying safe").
 
+## My model routing (optional)
+
+omp can give each kind of job its own model. This is how I have mine set up. It is my setup, not advice: the
+add-on works the same with any model, so use the ones you have a login for.
+
+| Job (omp's name) | My model | Why |
+|---|---|---|
+| Everyday chat (`default`) | Claude Opus 5.5, high thinking | Does most of the work |
+| Planning (`plan`, `slow`) | Claude Fable 5.2, high thinking | Slower, more careful thinking for plans |
+| Delegated jobs (`task`) | Claude Opus 5.5, high thinking | Same quality as the main chat |
+| Small quick jobs (`smol`) | DeepSeek v4.1 Flash (OpenCode Go) | Cheap and fast |
+
+**Helpers** (the background agents omp starts, see "Helpers" under "Skills"):
+
+- `task`, `reviewer` and `security-reviewer` → Claude Opus 5.5, high thinking
+- `scout` and `sonic` (searching and mechanical jobs) → DeepSeek v4.1 Flash
+
+**If a model is not available**, omp tries the next one in line:
+
+- Claude Opus 5.5 → Claude Fable 5.2
+- DeepSeek v4.1 Flash → MiniMax M3.1 Flash → GLM-5.3 Flash
+
+This is the part of my `~/.omp/agent/config.yml` that does it:
+
+```yaml
+modelRoles:
+  default: anthropic/claude-opus-5-5:high
+  plan: anthropic/claude-fable-5-2:high
+  slow: anthropic/claude-fable-5-2:high
+  task: anthropic/claude-opus-5-5:high
+  smol: opencode-go/deepseek-v4.1-flash
+task:
+  agentModelOverrides:
+    task: anthropic/claude-opus-5-5:high
+    reviewer: anthropic/claude-opus-5-5:high
+    security-reviewer: anthropic/claude-opus-5-5:high
+    scout: opencode-go/deepseek-v4.1-flash
+    sonic: opencode-go/deepseek-v4.1-flash
+retry:
+  fallbackChains:
+    anthropic/claude-opus-5-5:
+      - anthropic/claude-fable-5-2
+    opencode-go/deepseek-v4.1-flash:
+      - opencode-go/minimax-m3.1-flash
+      - opencode-go/glm-5.3-flash
+```
+
+To copy it, swap in model names from `omp models`, and only list a fallback you also have a login for. The
+installer does **not** touch models.
+
 ---
 
 ## Install (6 steps, about 5 minutes)
@@ -456,13 +506,8 @@ Things to know:
 - **Helpers.** The session-start context tells the model to start the memory keeper as a background helper.
   omp does that with its `task` tool and it works. A helper's model comes from `task.agentModelOverrides`
   (by helper type), then the helper type's own default, then the parent session's model. Setting only
-  `modelRoles.task` does **not** pin it (tested: the helper copied the parent). The author's machine pins all five
-  built-in helper types to Sonnet 5.5 at high thinking (checked from omp's own record). The installer does
-  **not** touch models. If you want the same, use models **you** have a login for:
-
-  ```bash
-  omp config set task.agentModelOverrides '{"task":"anthropic/claude-sonnet-5-5:high","sonic":"anthropic/claude-sonnet-5-5:high","scout":"anthropic/claude-sonnet-5-5:high","reviewer":"anthropic/claude-sonnet-5-5:high","security-reviewer":"anthropic/claude-sonnet-5-5:high"}'
-  ```
+  `modelRoles.task` does **not** pin it (tested: the helper copied the parent). My helper models, and the config
+  that sets them, are under "My model routing" above. The installer does **not** touch models.
 - **Questions.** The skills' question picker became plain-text questions in omp. That works; no skill broke.
 - **The guard teaches the model too.** Three runs tried `cd X && ...`, were refused in Glitch's words, and
   carried on without it, as Claude does.
