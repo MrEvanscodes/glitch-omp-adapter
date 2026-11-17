@@ -378,7 +378,14 @@ export function translate(toolName: string, input: any, cwd?: string): ClaudeCal
       // text rules (git history, destructive commands, secrets) still apply. This is a net with
       // wide holes, not a wall: see README "What is and is not guarded".
       const code = typeof inp.code === "string" ? inp.code : "";
-      return [{ tool_name: "Bash", tool_input: { command: code, description: `omp eval (${inp.language ?? "?"})` } }];
+      const calls = [{ tool_name: "Bash", tool_input: { command: code, description: `omp eval (${inp.language ?? "?"})` } }];
+      // omp's eval has a built-in `commit` namespace (`commit.draft()` then `d.commit(...)`) that commits
+      // without any `git commit` text, so the text rules above miss it (seen: Kimi K3.1 committed into a
+      // brain this way). Show the guards what the cell really does.
+      if (/(?<![\w.])commit\s*\.\s*draft\s*\(/.test(code)) {
+        calls.push({ tool_name: "Bash", tool_input: { command: 'git commit -m "omp eval commit namespace"', description: "omp eval: commit namespace" } });
+      }
+      return calls;
     }
     case "read": {
       const p = localPath(inp.path, cwd);

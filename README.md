@@ -450,7 +450,9 @@ read as a path, it refuses instead of guessing.
 **Not** a wall:
 
 - `eval` (Python and JS cells) can do anything a shell can. Its code is shown to the Bash text rules, which
-  catch the obvious cases, but a cell that writes a file in code is not seen.
+  catch the obvious cases, but a cell that writes a file in code is not seen. One omp-only route is closed on
+  purpose: omp's built-in `commit` namespace (`commit.draft()`) is judged as the `git commit` it is, so it
+  cannot commit into the brain (found when Kimi K3.1 did exactly that in a spare copy).
 - `lsp` edits and renames, MCP tools, `debug` and the browser tool are not checked.
 - Helpers started with omp's `task` tool: the guards DO run inside them (tested: a helper's outside read was
   refused). A helper is treated the way Claude Code treats a subagent: its tool calls carry `agent_id` and
@@ -589,10 +591,12 @@ real server.
 ## Tests
 
 ```bash
-npm test                # 24 logic tests, no omp or Glitch needed
+npm test                # 25 logic tests, no omp or Glitch needed
 npm run test:installer  # 9 tests of install.py, run against a throwaway omp settings folder
-npm run test:sandbox    # 6 end-to-end tests against a spare Glitch copy with Glitch's real hooks
+npm run test:sandbox    # 7 end-to-end tests against a spare Glitch copy with Glitch's real hooks
 npm run parity          # 17 probes through Claude Code's hook rules and this add-on: same verdict on each?
+npm run box-count       # real omp in RPC mode: how many approval boxes, in what order, per command
+npm run compare -- --root <spare copy> --model <provider/model> --label <name>   # same Glitch tasks, any model
 ```
 
 The sandbox tests and the parity check write a little state into the folder they run against, so they

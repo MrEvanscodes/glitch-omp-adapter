@@ -44,6 +44,12 @@ test("a folder-step command is refused and an ordinary one is not", { skip }, as
   assert.equal(await s.call("bash", { command: "echo hello" }), undefined);
 });
 
+test("committing into the brain through omp's eval commit namespace is refused like git commit", { skip }, async () => {
+  const s = session(uid());
+  const r = await s.call("eval", { language: "py", code: 'd = await commit.draft()\nawait d.commit("probe")' });
+  assert.equal(r?.block, true);
+});
+
 test("reading outside the folder: blocked, then one yes gives a one-time pass", { skip }, async () => {
   const s = session(uid());
   await s.prompt("please read /etc/hosts");

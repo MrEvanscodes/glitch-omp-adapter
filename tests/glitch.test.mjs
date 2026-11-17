@@ -58,6 +58,14 @@ test("translate maps omp tools onto the Claude shapes the guards read", () => {
   assert.equal(ev[0].tool_input.command, "print(1)");
 });
 
+test("an eval cell using omp's commit namespace is also judged as the git commit it is", () => {
+  const c = translate("eval", { language: "py", code: 'd = await commit.draft()\nawait d.commit("probe")' });
+  assert.equal(c.length, 2);
+  assert.match(c[1].tool_input.command, /^git commit\b/);
+  assert.equal(translate("eval", { language: "py", code: "print(1)" }).length, 1); // ordinary cell: unchanged
+  assert.equal(translate("eval", { language: "js", code: "repo.commit.draft()" }).length, 1); // someone else's `commit` object
+});
+
 test("findGlitchRoot needs CLAUDE.md AND the write guard, and walks past a workspace", () => {
   const root = fakeRoot({});
   const ws = path.join(root, "workspaces", "proj");
