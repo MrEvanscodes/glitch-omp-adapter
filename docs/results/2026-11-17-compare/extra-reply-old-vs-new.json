@@ -1,0 +1,42 @@
+[
+  {
+    "model": "anthropic/claude-opus-5-5:high",
+    "ext": "glitch-old.ts",
+    "keeperSpawned": true,
+    "replies": 1,
+    "texts": [
+      "Something in your memory didn't finish properly. Say `/keeper` and it'll get sorted. 🎯 Your current objective is to make the OpenCode adapter work exactly like"
+    ]
+  },
+  {
+    "model": "anthropic/claude-opus-5-5:high",
+    "ext": "glitch.ts",
+    "keeperSpawned": true,
+    "replies": 2,
+    "texts": [
+      "🎯 Your current objective is to make the OpenCode adapter work exactly like Glitch's Claude Code and Codex support. Something in your memory didn't finish prope",
+      "🎯 Your current objective is to make the OpenCode adapter work exactly like Glitch's Claude Code and Codex support."
+    ]
+  },
+  {
+    "model": "opencode-go/kimi-k3.1-pro:high",
+    "ext": "glitch-old.ts",
+    "keeperSpawned": true,
+    "replies": 2,
+    "texts": [
+      "Something in your memory hasn’t finished properly—saying `/keeper` will sort it. Your current objective is to make the OpenCode adapter work exactly like Glitch",
+      "Your current objective is to make the OpenCode adapter work exactly like Glitch’s Claude Code and Codex support."
+    ]
+  },
+  {
+    "model": "opencode-go/kimi-k3.1-pro:high",
+    "ext": "glitch.ts",
+    "keeperSpawned": true,
+    "replies": 3,
+    "texts": [
+      ".",
+      "Your current objective is to make the OpenCode adapter work exactly like Glitch’s Claude Code and Codex support.",
+      "No action needed."
+    ]
+  }
+]

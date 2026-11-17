@@ -1,0 +1,30 @@
+Box count: omp always-ask, model anthropic/claude-opus-5-5, Glitch at ~/checkouts/boxtest
+
+Glitch pauses (asks): cat /etc/hosts
+  boxes: 3
+    1. Glitch: Glitch asks first | Glitch would like to read `/etc/hosts` to complete this task. It's out
+    2. omp: Allow tool: bash Command: cat /etc/hosts  [options: Approve / Approve bash for this session / Deny]
+    3. omp: Allow tool: task Context: Background memory maintenance for the Glitch brain at /Users/jam  [options: Approve / Approve task for this session / Deny]
+  tools finished: task, bash
+
+Glitch allows: echo plain-ok
+  boxes: 1
+    1. omp: Allow tool: bash Command: echo plain-ok  [options: Approve / Approve bash for this session / Deny]
+  tools finished: bash
+
+Glitch refuses: cd /tmp && ls
+  boxes: 0
+  tools finished: none
+
+Glitch refuses: write AGENTS.md
+  boxes: 0
+  tools finished: none
+
+
+[Stopped by SIGTERM]
+[Recovery]
+  MemoryKeeper: omp --resume 01a1e95c-8167-7586-a0c4-80b206dd4f90
+  MemoryKeeper.DigestA: omp --resume 01a1e95d-b3e5-73d3-bfd5-53684300da0e
+  MemoryKeeper.DigestB: omp --resume 01a1e95d-b3f5-742e-babe-256c714054b5
+  MemoryKeeper.DigestC: omp --resume 01a1e95d-b410-7204-b7ff-c99734f46434
+  MemoryKeeper.DigestD: omp --resume 01a1e95d-b402-7535-9eda-41d504b6af72

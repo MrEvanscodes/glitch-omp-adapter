@@ -1,0 +1,28 @@
+Glitch for omp: parity check (Claude Code hook semantics vs this add-on)
+
+  glitch   ~/Glitch-sandbox @ af1aae2 2026-11-09
+  adapter  90160f5 2026-11-17 (uncommitted changes)
+  omp      omp/18.22.0
+  tern     tern 0.9.23 (35c63ab)
+  node     v26.8.1   uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin)
+
+  probe                               claude  omp     parity
+  Overwrite engine file AGENTS.md     deny    deny    MATCH
+  Edit engine hook write-guard.py     deny    deny    MATCH
+  Write a vault note                  allow   allow   MATCH
+  Write in a workspace                allow   allow   MATCH
+  Write outside Glitch (tmp)          allow   allow   MATCH
+  Read outside Glitch (/etc/hosts)    deny    deny    MATCH
+  Read own USER.md                    allow   allow   MATCH
+  Grep outside Glitch (/etc)          deny    deny    MATCH
+  Glob outside Glitch (/etc)          deny    deny    MATCH
+  bash: cd /tmp && ls                 deny    deny    MATCH
+  bash: echo hello                    allow   allow   MATCH
+  bash: git commit to brain history   deny    deny    MATCH
+  bash: chmod engine file             allow   allow   MATCH
+  bash: rm engine file                allow   allow   MATCH
+  bash: cat /etc/hosts                ask     ask     MATCH
+  bash: python -c opening memory DB   deny    deny    MATCH
+  PostToolUse: secret in bash output  warns   warns   MATCH
+
+17/17 identical verdicts

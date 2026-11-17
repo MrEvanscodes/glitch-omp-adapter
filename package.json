@@ -10,6 +10,8 @@
     "test:installer": "node --test tests/installer.test.mjs",
     "test:sandbox": "node --test tests/sandbox.test.mjs",
     "parity": "node scripts/parity.mjs",
+    "box-count": "node scripts/box-count.mjs",
+    "compare": "node scripts/model-compare.mjs",
     "doctor": "node scripts/doctor.mjs"
   }
 }
